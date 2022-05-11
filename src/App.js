@@ -3,18 +3,43 @@ import Header from './components/Header';
 import Grid from './components/Grid';
 import './styles.css';
 
-const App = () => {
-	return (
-		<div>
-			<Header />
+import { IntlProvider,FormattedMessage,FormattedDate } from 'react-intl';
+import MenssajesIngles from './languajes/en-US.json'
+import { langContext } from './context/langContext';
 
-			<div className="main">
-				<h1 className="titulo">Bienvenido, Carlos</h1>
-				<p className="subtitulo">Viernes 23 de Abril de 2020</p>
-				
-				<Grid />
+const App = () => {
+	console.log(langContext);
+	return (
+		//Encerramos toda la aplicacion en IntlProvider para poder traducirla
+		<IntlProvider locale="en-US" messages={MenssajesIngles}>
+			<div>
+				<Header />
+
+				<div className="main">
+					<h1 className="titulo">
+						{/* formateo de mensajes */}
+						<FormattedMessage id='app.wellcome'  
+							defaultMessage='Wellcome'
+							values={
+								{
+									name:'Irissf' //le pasamos valor al json
+								}
+							}
+						/>
+					</h1>
+					<p className="subtitulo"></p>
+						{/* formateos de fechas */}
+						<FormattedDate 
+							value={Date.now()}
+							year="numeric"
+							month='long'
+							day='numeric'
+							weekday='long'
+						/>
+					<Grid />
+				</div>
 			</div>
-		</div>
+		</IntlProvider>
 	);
 }
  
