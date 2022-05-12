@@ -12,8 +12,27 @@ const langContext = React.createContext();
 //creamos un proveedor, encierra la aplicación y le provee el contexto
 const LangProvider = ({children}) => {
 
-    const [mensajes, establecerMensajes] = useState(MensajesIngles);
-    const [locale, establecerLocale] = useState('en-US');
+    //guardamos el valor de localStorage
+    let localePorDefecto;
+	let mensajesPorDefecto;
+	const lang = localStorage.getItem('lang');
+
+    //si tenemos guardado un idioma en navegador
+    if(lang){
+		localePorDefecto = lang
+
+		if(lang === 'es-ES'){
+			mensajesPorDefecto = MensajesEspanol;
+		} else if(lang === 'en-US'){
+			mensajesPorDefecto = MensajesIngles
+		} else {
+			localePorDefecto = 'en-US'
+			mensajesPorDefecto = MensajesIngles
+		}
+	}
+
+    const [mensajes, establecerMensajes] = useState(mensajesPorDefecto);
+    const [locale, establecerLocale] = useState(localePorDefecto);
 
     //funición para toda la web de cambiar el idioma
     const establecerLenguaje = (lenguaje) => {
@@ -22,15 +41,19 @@ const LangProvider = ({children}) => {
             case 'es-ES':
                 establecerMensajes(MensajesEspanol);
                 establecerLocale('es-ES');
+                //para que se guarde en navegador el idioma elegido
+                localStorage.setItem('lang', 'es-ES')
                 break;
             case 'en-EN':
                 establecerMensajes(MensajesIngles);
                 establecerLocale('en-US');
+                localStorage.setItem('lang', 'en-EN')
                 break;
             default:
                 //el por defecto
                 establecerMensajes(MensajesIngles);
                 establecerLocale('en-US');
+                localStorage.setItem('lang', 'en-EN')
                 break;
         }
     }
