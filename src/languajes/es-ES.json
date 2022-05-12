@@ -1,3 +1,11 @@
 {
-    "app.wellcome":"¡Hola!, {name}"
+    "app.wellcome":"¡Hola!, {name}",
+
+    "menu.home":"Inicio",
+    "menu.explore":"Explorar",
+    "menu.profile":"Perfil",
+
+    "profile.title":"Perfil",
+    "explore.title":"Explorar"
+    
 }

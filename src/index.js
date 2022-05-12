@@ -4,6 +4,7 @@ import Router from './router/Router';
 import {LangProvider} from './context/langContext'
 
 ReactDOM.render(
+    
     //el proveedor debe encerrar toda la aplicación
     <LangProvider>
         <Router />
